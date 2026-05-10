@@ -1,8 +1,6 @@
 services:
     radarr:
         image: lscr.io/linuxserver/radarr:latest
-        env_file:
-            - ../stack.env  # Points to the root file
         container_name: radarr
         restart: unless-stopped
         environment:
