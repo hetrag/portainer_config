@@ -1,0 +1,24 @@
+services:
+  vllm-qwen:
+    image: vllm/vllm-openai:latest # Use a specific version tag if needed for stability
+    container_name: vllm-qwen-embedding
+    ports:
+      - "8001:8001"
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface # Persist model downloads
+    command: >
+      serve Qwen/Qwen3-VL-Embedding-8B
+      --dtype auto
+      --max-model-len 32768
+      --gpu-memory-utilization 0.20
+      --kv-cache-dtype fp8
+      --max-num-seqs 30
+      --trust-remote-code
+      --limit-mm-per-prompt '{"video": 0}'
+      --host 0.0.0.0
+      --port 8001
+      --enforce-eager
+      --attention-backend TRITON_ATTN
+      --mm-encoder-attn-backend TRITON_ATTN
+      --runner pooling
+    restart: unless-stopped
