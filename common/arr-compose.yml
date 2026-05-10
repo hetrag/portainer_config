@@ -1,6 +1,7 @@
 services:
     sonarr:
         image: lscr.io/linuxserver/sonarr:latest
+        user: "${PUID}:${PGID}"
         container_name: sonarr
         restart: unless-stopped
         environment:
@@ -17,6 +18,7 @@ services:
             
     radarr:
         image: lscr.io/linuxserver/radarr:latest
+        user: "${PUID}:${PGID}"
         container_name: radarr
         restart: unless-stopped
         environment:
@@ -33,6 +35,7 @@ services:
 
     sabnzbd:
         image: lscr.io/linuxserver/sabnzbd:latest
+        user: "${PUID}:${PGID}"
         container_name: sabnzbd
         restart: unless-stopped
         environment:

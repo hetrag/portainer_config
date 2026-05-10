@@ -1,6 +1,7 @@
 services:
     nextcloud-aio-mastercontainer:
         image: nextcloud/all-in-one:latest
+        user: "${PUID}:${PGID}"
         container_name: nextcloud-aio-mastercontainer
         init: true
         restart: always
