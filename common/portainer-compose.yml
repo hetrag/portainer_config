@@ -1,7 +1,6 @@
 services:
     portainer:
         image: portainer/portainer-ce:sts
-        user: "${PUID}:${PGID}"
         container_name: portainer
         restart: unless-stopped
         environment:
