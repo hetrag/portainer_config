@@ -22,6 +22,9 @@ services:
         image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
         container_name: immich_machine_learning
         restart: unless-stopped
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
         volumes:
             - ${MEDIA_HDD}/immich/model-cache:/cache
         healthcheck:
@@ -43,6 +46,8 @@ services:
             POSTGRES_USER: ${DB_USERNAME}
             POSTGRES_DB: ${DB_DATABASE_IMMICH_NAME}
             POSTGRES_INITDB_ARGS: '--data-checksums'
+            - PUID=${PUID}
+            - PGID=${PGID}
         volumes:
             - ${CONF_SSD}/immich/data:/var/lib/postgresql/data
         shm_size: 128mb
