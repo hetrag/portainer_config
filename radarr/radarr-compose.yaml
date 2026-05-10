@@ -19,3 +19,6 @@ networks:
     default:
         external: true
         name: ${NETWORK_NAME}
+
+env_file:
+  - stack.env
