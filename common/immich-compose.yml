@@ -38,7 +38,7 @@ services:
         environment:
             POSTGRES_PASSWORD: ${DB_PASSWORD}
             POSTGRES_USER: ${DB_USERNAME}
-            POSTGRES_DB: ${DB_DATABASE_NAME}
+            POSTGRES_DB: ${DB_DATABASE_IMMICH_NAME}
             POSTGRES_INITDB_ARGS: '--data-checksums'
         volumes:
             - ${CONF_SSD}/immich/data:/var/lib/postgresql/data
