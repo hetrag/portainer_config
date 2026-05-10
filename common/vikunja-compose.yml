@@ -1,7 +1,6 @@
 services:
     vikunja:
         image: vikunja/vikunja
-        user: "${PUID}:${PGID}"
         environment:
             VIKUNJA_SERVICE_PUBLICURL: http://<the public url where Vikunja is reachable>
             VIKUNJA_DATABASE_HOST: db
