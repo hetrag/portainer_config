@@ -3,6 +3,9 @@ services:
         image: portainer/portainer-ce:sts
         container_name: portainer
         restart: unless-stopped
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - ${CONF_SSD}/portainer/data:/data
