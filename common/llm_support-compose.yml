@@ -9,8 +9,8 @@ services:
             - open-webui:/app/backend/datahttp://192.168.1.181:8000/v1
         ports:
             - ${OPEN_WEBUI_PORT}:8080
-   
-   qdrant:
+
+    qdrant:
         image: qdrant/qdrant:latest
         container_name: qdrant
         restart: unless-stopped
