@@ -1,0 +1,40 @@
+services:
+    vikunja:
+        image: vikunja/vikunja
+        container_name: vikunja
+        restart: unless-stopped
+        environment:
+            VIKUNJA_SERVICE_PUBLICURL: https://vikunja.jgelectronics.dk/
+            VIKUNJA_DATABASE_HOST: vikunja-db
+            VIKUNJA_DATABASE_PASSWORD: ${DB_PASSWORD}
+            VIKUNJA_DATABASE_TYPE: postgres
+            VIKUNJA_DATABASE_USER: ${DB_USERNAME}
+            VIKUNJA_DATABASE_DATABASE: vikunja
+            VIKUNJA_SERVICE_JWTSECRET: changeme_secure_random_string
+        ports:
+            - 3456:3456
+        volumes:
+            - ${DATA_SSD}/vikunja/files:/app/vikunja/files
+        depends_on:
+            db:
+                condition: service_healthy
+
+    db:
+        image: postgres:18
+        container_name: vikunja-db
+        restart: unless-stopped
+        environment:
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_DB: vikunja
+        volumes:
+            - ${CONF_SSD}/vikunja/db:/var/lib/postgresql/data
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -h localhost -U $$POSTGRES_USER"]
+            interval: 5s
+            start_period: 30s
+
+networks:
+    default:
+        external: true
+        name: ${NETWORK_NAME}

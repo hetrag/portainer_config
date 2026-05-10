@@ -1,0 +1,21 @@
+services:
+    radarr:
+        image: lscr.io/linuxserver/radarr:latest
+        container_name: radarr
+        restart: unless-stopped
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - ${CONF_SSD}/radarr:/config
+            - ${DATA_HDD}/radarr/MediaCover:/config/MediaCover
+            - ${DATA_SSD}/downloads:/downloads
+            - ${MEDIA_HDD}/movies:/movies
+        ports:
+            - 7878:7878
+
+networks:
+    default:
+        external: true
+        name: ${NETWORK_NAME}
