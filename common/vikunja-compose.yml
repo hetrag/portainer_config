@@ -2,7 +2,7 @@ services:
     vikunja:
         image: vikunja/vikunja
         environment:
-            VIKUNJA_SERVICE_PUBLICURL: http://<the public url where Vikunja is reachable>
+            VIKUNJA_SERVICE_PUBLICURL: https://vikunja.jgelectronics.dk/
             VIKUNJA_DATABASE_HOST: db
             VIKUNJA_DATABASE_PASSWORD: changeme
             VIKUNJA_DATABASE_TYPE: postgres
