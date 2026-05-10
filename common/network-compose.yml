@@ -1,7 +1,6 @@
 services:
     npm:
         image: jc21/nginx-proxy-manager:latest
-        user: "${PUID}:${PGID}"
         container_name: npm
         restart: unless-stopped
         environment:
@@ -15,32 +14,6 @@ services:
             - ${CONF_SSD}/npm/data:/data
             - ${CONF_SSD}/npm/letsencrypt:/etc/letsencrypt
             
-    pihole:
-        image: pihole/pihole:latest
-        user: "${PUID}:${PGID}"
-        container_name: pihole
-        restart: unless-stopped
-        environment:
-            - TZ=${TZ}
-            - FTLCONF_webserver_api_password=${FTLCONF_webserver_api_password}
-            - PUID=${PUID}
-            - PGID=${PGID}
-        volumes:
-            - ${CONF_SSD}/pihole/etc-pihole:/etc/pihole
-            - ${CONF_SSD}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
-        # Port 53 is REQUIRED for DNS. 
-        # Port 80 is moved to 8053 to avoid NPM conflict.
-        ports:
-            - "53:53/tcp"
-            - "53:53/udp"
-            - "${PIHOLE_WEB_PORT}:80/tcp"
-        cap_add:
-            - NET_ADMIN # Required for DHCP or advanced network features
-        healthcheck:
-            test: ["CMD", "pihole", "status"]
-            interval: 30s
-            timeout: 10s
-            retries: 3
             
 networks:
     default:
