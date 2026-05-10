@@ -3,7 +3,6 @@ services:
         image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
         container_name: immich_server
         restart: unless-stopped
-        environment:
         volumes:
             - ${MEDIA_HDD}/immich:/data
             - /etc/localtime:/etc/localtime:ro
@@ -20,7 +19,6 @@ services:
         image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
         container_name: immich_machine_learning
         restart: unless-stopped
-        environment:
         volumes:
             - ${MEDIA_HDD}/immich/model-cache:/cache
         healthcheck:
@@ -30,7 +28,6 @@ services:
         image: docker.io/valkey/valkey:8@sha256:81db6d39e1bba3b3ff32bd3a1b19a6d69690f94a3954ec131277b9a26b95b3aa
         container_name: immich_redis
         restart: unless-stopped
-        environment:
         healthcheck:
             test: redis-cli ping || exit 1
 
