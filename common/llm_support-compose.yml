@@ -19,6 +19,8 @@ services:
         environment:
             - QDRANT__TELEMETRY_DISABLED=true
             - QDRANT__LOG_LEVEL=INFO
+            - PUID=${PUID}
+            - PGID=${PGID}
         volumes:
             - ${DATA_SSD}/qdrant_data:/qdrant/storage
         ports:
