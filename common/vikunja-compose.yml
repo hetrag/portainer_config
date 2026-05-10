@@ -1,6 +1,7 @@
 services:
     vikunja:
         image: vikunja/vikunja
+        user: "${PUID}:${PGID}"
         environment:
             VIKUNJA_SERVICE_PUBLICURL: http://<the public url where Vikunja is reachable>
             VIKUNJA_DATABASE_HOST: db
@@ -19,6 +20,7 @@ services:
         restart: unless-stopped
     db:
         image: postgres:18
+        user: "${PUID}:${PGID}"
         environment:
             POSTGRES_PASSWORD: changeme
             POSTGRES_USER: vikunja
