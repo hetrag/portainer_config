@@ -26,7 +26,6 @@ services:
         environment:
             POSTGRES_PASSWORD: ${DB_PASSWORD}
             POSTGRES_USER: ${DB_USERNAME}
-            POSTGRES_DB: vikunja
         volumes:
             - ${CONF_SSD}/vikunja/db:/var/lib/postgresql/data
         healthcheck:
