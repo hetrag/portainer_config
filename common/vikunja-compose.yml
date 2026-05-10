@@ -16,7 +16,7 @@ services:
         volumes:
             - ${DATA_SSD}/vikunja/files:/app/vikunja/files
         depends_on:
-            db:
+            vikunja-db:
                 condition: service_healthy
 
     vikunja-db:
