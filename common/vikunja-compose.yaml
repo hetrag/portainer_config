@@ -12,7 +12,7 @@ services:
             VIKUNJA_DATABASE_DATABASE: vikunja
             VIKUNJA_SERVICE_JWTSECRET: changeme_secure_random_string
         ports:
-            - 3456:3456
+            - ${VIKUNJA_PORT}:3456
         volumes:
             - ${DATA_SSD}/vikunja/files:/app/vikunja/files
         depends_on:

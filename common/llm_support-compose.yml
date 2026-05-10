@@ -1,5 +1,16 @@
 services:
-    qdrant:
+    open-webui:
+        image: ghcr.io/open-webui/open-webui:main
+        container_name: open-webui
+        restart: unless-stopped
+        environment:
+            - OLLAMA_BASE_URL=http://192.168.1.181:8000/v1
+        volumes:
+            - open-webui:/app/backend/datahttp://192.168.1.181:8000/v1
+        ports:
+            - "${OPEN_WEBUI_PORT}:8080"   
+   
+   qdrant:
         image: qdrant/qdrant:latest
         container_name: qdrant
         restart: unless-stopped
@@ -9,8 +20,8 @@ services:
         volumes:
             - ${DATA_SSD}/qdrant_data:/qdrant/storage
         ports:
-            - 6333:6333
-            - 6334:6334
+            - ${QDRANT_HTTP_PORT}:6333
+            - ${QDRANT_GRPC_PORT}:6334
         configs:
             - source: qdrant_config
               target: /qdrant/config/production.yaml
@@ -26,4 +37,4 @@ configs:
 networks:
     default:
         external: true
-        name: ${NETWORK_NAME}
+        name: ${NETWORK_NAME}      

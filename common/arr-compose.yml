@@ -1,0 +1,52 @@
+services:
+    sonarr:
+        image: lscr.io/linuxserver/sonarr:latest
+        container_name: sonarr
+        restart: unless-stopped
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - ${CONF_SSD}/sonarr:/config
+            - ${DATA_HDD}/sonarr/MediaCover:/config/MediaCover
+            - ${DATA_SSD}/downloads:/downloads
+            - ${MEDIA_HDD}/series:/series
+        ports:
+            - ${SONARR_PORT}:8989
+            
+    radarr:
+        image: lscr.io/linuxserver/radarr:latest
+        container_name: radarr
+        restart: unless-stopped
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - ${CONF_SSD}/radarr:/config
+            - ${DATA_HDD}/radarr/MediaCover:/config/MediaCover
+            - ${DATA_SSD}/downloads:/downloads
+            - ${MEDIA_HDD}/movies:/movies
+        ports:
+            - ${RADARR_PORT}:7878   
+
+    sabnzbd:
+        image: lscr.io/linuxserver/sabnzbd:latest
+        container_name: sabnzbd
+        restart: unless-stopped
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - ${CONF_SSD}/sabnzbd:/config
+            - ${DATA_SSD}/downloads:/downloads
+            - ${DATA_SSD}/downloads/incomplete:/incomplete-downloads
+        ports:
+            - ${SABNZBD_PORT}:8080            
+
+networks:
+    default:
+        external: true
+        name: ${NETWORK_NAME}
