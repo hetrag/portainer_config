@@ -5,6 +5,8 @@ services:
         restart: unless-stopped
         environment:
             - TZ=${TZ}
+            - PUID=${PUID}
+            - PGID=${PGID}
         ports:
             - ${NPM_HTTP_PORT}:80
             - ${NPM_ADMIN_PORT}:81
