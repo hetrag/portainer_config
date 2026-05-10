@@ -21,4 +21,4 @@ services:
       --attention-backend TRITON_ATTN
       --mm-encoder-attn-backend TRITON_ATTN
       --runner pooling
-    restart: unless-stopped
+    restart: never
