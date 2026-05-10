@@ -34,6 +34,9 @@ services:
         image: docker.io/valkey/valkey:8@sha256:81db6d39e1bba3b3ff32bd3a1b19a6d69690f94a3954ec131277b9a26b95b3aa
         container_name: immich_redis
         restart: unless-stopped
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
         healthcheck:
             test: redis-cli ping || exit 1
 
@@ -42,12 +45,12 @@ services:
         container_name: immich_postgres
         restart: unless-stopped
         environment:
-            POSTGRES_PASSWORD: ${DB_PASSWORD}
-            POSTGRES_USER: ${DB_USERNAME}
-            POSTGRES_DB: ${DB_DATABASE_IMMICH_NAME}
-            POSTGRES_INITDB_ARGS: '--data-checksums'
             - PUID=${PUID}
             - PGID=${PGID}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+            - POSTGRES_USER=${DB_USERNAME}
+            - POSTGRES_DB=${DB_DATABASE_IMMICH_NAME}
+            - POSTGRES_INITDB_ARGS=--data-checksums
         volumes:
             - ${CONF_SSD}/immich/data:/var/lib/postgresql/data
         shm_size: 128mb
