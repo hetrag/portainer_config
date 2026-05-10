@@ -29,7 +29,7 @@ services:
         healthcheck:
             test: ["CMD-SHELL", "pg_isready -h localhost -U $$POSTGRES_USER"]
             interval: 2s
-			start_period: 30s
+            start_period: 30s
 
 networks:
     default:
