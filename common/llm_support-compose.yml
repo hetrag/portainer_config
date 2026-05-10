@@ -6,7 +6,7 @@ services:
         environment:
             - OLLAMA_BASE_URL=http://192.168.1.181:8000/v1
         volumes:
-            - open-webui:/app/backend/datahttp://192.168.1.181:8000/v1
+            - ${CONF_SSD}/open-webui:/app/data
         ports:
             - ${OPEN_WEBUI_PORT}:8080
 
