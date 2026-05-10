@@ -1,7 +1,6 @@
 services:
     vikunja:
         image: vikunja/vikunja
-        user: "${PUID}:${PGID}"
         container_name: vikunja
         restart: unless-stopped
         environment:
@@ -22,7 +21,6 @@ services:
 
     db:
         image: postgres:18
-        user: "${PUID}:${PGID}"
         container_name: vikunja-db
         restart: unless-stopped
         environment:
