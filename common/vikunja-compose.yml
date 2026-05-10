@@ -19,7 +19,7 @@ services:
             db:
                 condition: service_healthy
 
-    db:
+    vikunja-db:
         image: postgres:18
         container_name: vikunja-db
         restart: unless-stopped
