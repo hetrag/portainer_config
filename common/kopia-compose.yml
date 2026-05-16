@@ -1,0 +1,47 @@
+services:
+  kopia:
+    image: kopia/kopia:latest
+    container_name: kopia_server
+    restart: unless-stopped
+    ports:
+      - "51515:51515"
+    environment:
+      - TZ=Europe/Copenhagen # Sets container timezone for accurate backup scheduling
+    volumes:
+      # --- KOPIA SYSTEM VOLUMES ---
+      # These hold Kopia's configuration, cache, and logs. 
+      # They must be persistent.
+      - ${CONF_SSD}/kopia:/app/config
+      - ${DATA_HDD}/kopia:/app/cache
+      - ${DATA_HDD}/kopia:/app/logs
+
+      # --- YOUR DATA TO BACK UP ---
+      # Map the local directories you want to back up here.
+      # VERY IMPORTANT: Add ':ro' at the end to make them Read-Only.
+      # This ensures Kopia can only read the data, never accidentally modify it.
+      - /path/to/your/documents:/data/documents:ro
+      - /path/to/your/docker/appdata:/data/appdata:ro
+      - /path/to/your/photos:/data/photos:ro
+
+      - ${CONF_SSD}:/data/configs:ro
+      - ${MEDIA_HDD}/immich:/data/photos:ro
+      - /mnt/raid/nas:/data/nas:ro
+      - ${MEDIA_HDD}/music:/data/music:ro
+      - ${DATA_SSD}/qdrant_data:/data/qdrant:ro
+
+    command:
+      - server
+      - start
+      - --insecure
+      - --address=0.0.0.0:51515
+      - --server-username=admin
+      - --server-password=YourSecurePasswordHere! # Change this!
+      - --config-file=/app/config/repository.config
+      - --log-dir=/app/logs
+      - --cache-directory=/app/cache
+
+networks:
+    default:
+        external: true
+        name: ${NETWORK_NAME}
+
