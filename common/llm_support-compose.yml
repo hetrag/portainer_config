@@ -1,7 +1,6 @@
 services:
     open-webui:
         image: ghcr.io/open-webui/open-webui:main
-        user: "${PUID}:${PGID}"
         container_name: open-webui
         restart: unless-stopped
         environment:
@@ -15,7 +14,6 @@ services:
 
     qdrant:
         image: qdrant/qdrant:latest
-        user: "${PUID}:${PGID}"
         container_name: qdrant
         restart: unless-stopped
         environment:
