@@ -6,6 +6,8 @@ services:
         restart: unless-stopped
         environment:
             - OLLAMA_BASE_URL=http://192.168.1.181:8000/v1
+            - PUID=${PUID}
+            - PGID=${PGID}
         volumes:
             - ${CONF_SSD}/open-webui:/app/data
         ports:
